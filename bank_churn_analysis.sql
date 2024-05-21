@@ -1,6 +1,5 @@
 
-/*Distribution of attrited customers based on age range*/
-
+-- Distribution of attrited customers based on age range
 select 
 case when "Customer_Age" < 20 then '0-20'
 	when "Customer_Age" between 20 and 30 then '20-30'
@@ -15,32 +14,24 @@ group by age_range
 order by age_range;
 -- The number of customers who had left the bank is the highest for the customers who are between the age of 40-50
 
-
 -- Number of males and females in Existing customers
-
-select "Gender", 
-		sum(case 
-				when "Attrition_Flag" = 'Existing Customer' then 1	
-			end) as Existing_customers
-from 
-	customers.bankchurners b
-group by 
-	"Gender" ;
+select "Gender",
+  sum(case 
+     when "Attrition_Flag" = 'Existing Customer' then 1	
+  end) as Existing_customers
+from customers.bankchurners b
+group by "Gender" ;
 -- Male existing customers are 4072 whereas female existing cutomers are 4428
-
 
 -- Number of males and females in Existing customers
 select "Gender",
-		sum(case
-				when "Attrition_Flag" ='Attrited Customer' then 1
-				else 0 
-			end)as Attrited_customer
-from 
-	customers.bankchurners b
-group by 
-	"Gender" ;
+  sum(case
+	when "Attrition_Flag" ='Attrited Customer' then 1
+	else 0 
+     end)as Attrited_customer
+from customers.bankchurners b
+group by "Gender" ;
 -- Male Attrited Customers are 697 whereas female Attrited Cutomers are 930
-
 
 -- Education_Level distribution of existing and attrited customers
 
