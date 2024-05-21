@@ -13,6 +13,22 @@ where "Attrition_Flag" = 'Attrited Customer'
 group by age_range
 order by age_range;
 -- The number of customers who had left the bank is the highest for the customers who are between the age of 40-50
+-- in percentage
+select 
+	case 
+		when "Customer_Age" between 18 and 30 then '18-30'
+		when "Customer_Age" between 30 and 40 then '30-40'
+		when "Customer_Age" between 40 and 50 then '40-50'
+		when "Customer_Age" between 50 and 60 then '50-60'
+		when "Customer_Age" between 60 and 120 then 'above 60'
+	end as age_group,
+	round((sum(
+		case 
+			when "Attrition_Flag" ='Attrited Customer' then 1
+			else 0 end)*100.0/ count(*)),2)|| '%' as churn_rate
+from customers.bankchurners b 
+group by 1
+order by 2;
 
 -- Number of males and females in Existing customers
 select "Gender",
